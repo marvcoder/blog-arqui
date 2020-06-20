@@ -6,12 +6,6 @@ import { Helmet } from 'react-helmet'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
-/**
-* Single page (/:slug)
-*
-* This file renders a single page and loads all the content.
-*
-*/
 const Page = ({ data, location }) => {
     const page = data.ghostPage
 

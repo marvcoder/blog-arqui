@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Helmet } from 'react-helmet'
+import Helmet from 'react-helmet'
 import { Link, StaticQuery, graphql } from 'gatsby'
-import Img from 'gatsby-image'
 
 import { Navigation } from '.'
-import config from '../../utils/siteConfig'
 
 // Styles
 import '../../styles/app.css'
@@ -18,9 +16,8 @@ import '../../styles/app.css'
 * styles, and meta data for each page.
 *
 */
-const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
+const DefaultLayout = ({ data, children, bodyClass }) => {
     const site = data.allGhostSettings.edges[0].node
-    const twitterUrl = site.twitter ? `https://twitter.com/${site.twitter.replace(/^@/, ``)}` : null
     const facebookUrl = site.facebook ? `https://www.facebook.com/${site.facebook.replace(/^\//, ``)}` : null
 
     return (
@@ -40,36 +37,31 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                             <div className="site-mast">
                                 <div className="site-mast-left">
                                     <Link to="/">
-                                        {site.logo ?
-                                            <img className="site-logo" src={site.logo} alt={site.title} />
-                                            : <Img fixed={data.file.childImageSharp.fixed} alt={site.title} />
-                                        }
+                                        <div className="site-header-top">
+                                            <img className="site-logo" src="https://scontent.flim1-1.fna.fbcdn.net/v/t1.0-9/104416511_176286350511244_1249329662095937893_n.png?_nc_cat=104&_nc_sid=7aed08&_nc_eui2=AeEt6aImd55mSISPFKkJWiAa2bnjQMD-dO7ZueNAwP507rEWR8ey4D2FfBabZjviAv5BHMSku_kk7ZP389C78wn4&_nc_ohc=JuljW9nXsKEAX9KlKvw&_nc_ht=scontent.flim1-1.fna&oh=fb17d6ae43a6a25f7e4b1663e0c4de22&oe=5F0EEE00" alt={site.title} />
+                                            <div className="site-header-link">
+                                                <h1 className="site-banner-title">{site.title}</h1>
+                                                <p className="site-banner-desc">{site.description}</p>
+                                            </div>
+                                        </div>
                                     </Link>
                                 </div>
                                 <div className="site-mast-right">
-                                    { site.twitter && <a href={ twitterUrl } className="site-nav-item" target="_blank" rel="noopener noreferrer"><img className="site-nav-icon" src="/images/icons/twitter.svg" alt="Twitter" /></a>}
-                                    { site.facebook && <a href={ facebookUrl } className="site-nav-item" target="_blank" rel="noopener noreferrer"><img className="site-nav-icon" src="/images/icons/facebook.svg" alt="Facebook" /></a>}
-                                    <a className="site-nav-item" href={ `https://feedly.com/i/subscription/feed/${config.siteUrl}/rss/` } target="_blank" rel="noopener noreferrer"><img className="site-nav-icon" src="/images/icons/rss.svg" alt="RSS Feed" /></a>
+
+                                    {site.facebook && <a href={facebookUrl} className="site-nav-item" target="_blank" rel="noopener noreferrer"><img className="site-nav-icon" src="/images/icons/facebook.svg" alt="Facebook" /></a>}
                                 </div>
                             </div>
-                            { isHome ?
-                                <div className="site-banner">
-                                    <h1 className="site-banner-title">{site.title}</h1>
-                                    <p className="site-banner-desc">{site.description}</p>
-                                </div> :
-                                null}
                             <nav className="site-nav">
                                 <div className="site-nav-left">
                                     {/* The navigation items as setup in Ghost */}
                                     <Navigation data={site.navigation} navClass="site-nav-item" />
                                 </div>
                                 <div className="site-nav-right">
-                                    <Link className="site-nav-button" to="/about">About</Link>
+                                    <Link className="site-nav-button" to="/">Acerca</Link>
                                 </div>
                             </nav>
                         </div>
                     </header>
-
                     <main className="site-main">
                         {/* All the main content gets inserted here, index.js, post.js */}
                         {children}
@@ -82,7 +74,7 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                     <footer className="site-foot">
                         <div className="site-foot-nav container">
                             <div className="site-foot-nav-left">
-                                <Link to="/">{site.title}</Link> © 2019 &mdash; Published with <a className="site-foot-nav-item" href="https://ghost.org" target="_blank" rel="noopener noreferrer">Ghost</a>
+                                <Link to="/">{site.title}</Link> © 2020 &mdash; Hecho con amor 🖤
                             </div>
                             <div className="site-foot-nav-right">
                                 <Navigation data={site.navigation} navClass="site-foot-nav-item" />
